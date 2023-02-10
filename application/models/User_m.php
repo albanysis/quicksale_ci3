@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_m extends CI_Model
 {
+
     public function login($username, $password)
     {
         // $this->db->select('*');
@@ -21,4 +22,10 @@ class User_m extends CI_Model
 
         return false;
     }
+
+    // public function logout($date, $id)
+    // {
+    //     $this->db->where($this->user_id, $id);
+    //     $this->db->update($this->last_login, $date);
+    // }
 }

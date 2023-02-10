@@ -40,7 +40,7 @@
 
             <form action="<?= base_url('auth/login') ?>" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+                    <input type="text" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>" required autofocus>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">

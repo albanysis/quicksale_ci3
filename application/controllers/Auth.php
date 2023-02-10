@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+    private $_table = "user";
 
     function __construct()
     {
@@ -10,9 +11,52 @@ class Auth extends CI_Controller
         $this->load->model('user_m');
     }
 
-    // public function index()
+    public function index()
+    {
+        $this->load->view('login');
+    }
+
+    // public function login()
     // {
-    //     $this->load->view('login');
+    //     $data['title'] = "Quick Sale - Login";
+    //     $this->form_validation->set_rules('username', 'Username', 'trim|required');
+    //     $this->form_validation->set_rules('password', 'Password', 'trim|required');
+    //     if ($this->form_validation->run() == false) {
+    //         $this->load->view('login', $data);
+    //     } else {
+    //         $this->_login();
+    //     }
+    // }
+
+    // private function _login()
+    // {
+    //     $username = $this->input->post('username');
+    //     $password = sha1($this->input->post('password'));
+    //     $user = $this->db->get_where('user', ['username' => $username])->row_array();
+
+    //     if ($user) {
+    //         //user ada
+    //         if (password_verify($password, $user['password'])) {
+    //             $data = [
+    //                 'username' => $user['username'],
+    //                 'level' => $user['level']
+    //             ];
+    //             $this->session->set_userdata($data);
+    //             redirect('kasir');
+    //         } else {
+    //             $this->session->set_flashdata(
+    //                 'message',
+    //                 'Invalid password'
+    //             );
+    //             redirect('auth/login');
+    //         }
+    //     } else {
+    //         $this->session->set_flashdata(
+    //             'message',
+    //             'Invalid username or password'
+    //         );
+    //         redirect('auth/login');
+    //     }
     // }
 
     public function login()
@@ -39,12 +83,28 @@ class Auth extends CI_Controller
                     'authenticated' => TRUE
                 );
 
+                $this->db->update(
+                    'user',
+                    array('last_login' => date('Y-m-d H:i:s')),
+                    array('user_id' => $user->user_id)
+                );
+
                 $this->session->set_userdata($userdata);
 
-                echo "<script>
-                alert('Selamat, Login berhasil');
+                if ($this->session->userdata('level') == 1) {
+                    echo "<script>
+                    window.location='" . site_url('dashboard') . "';
+                    </script>";
+                } else if ($this->session->userdata('level') == 2) {
+                    echo "<script>
                 window.location='" . site_url('dashboard') . "';
                 </script>";
+                }
+
+                // echo "<script>
+                // alert('Selamat, Login berhasil');
+                // window.location='" . site_url('dashboard') . "';
+                // </script>";
 
                 // redirect('dashboard');
             } else {
