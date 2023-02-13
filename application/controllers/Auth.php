@@ -92,21 +92,10 @@ class Auth extends CI_Controller
                 $this->session->set_userdata($userdata);
 
                 if ($this->session->userdata('level') == 1) {
-                    echo "<script>
-                    window.location='" . site_url('dashboard') . "';
-                    </script>";
-                } else if ($this->session->userdata('level') == 2) {
-                    echo "<script>
-                window.location='" . site_url('dashboard') . "';
-                </script>";
+                    redirect('admin');
+                } else {
+                    redirect('kasir');
                 }
-
-                // echo "<script>
-                // alert('Selamat, Login berhasil');
-                // window.location='" . site_url('dashboard') . "';
-                // </script>";
-
-                // redirect('dashboard');
             } else {
                 $this->session->set_flashdata('message', 'Invalid username or password');
                 redirect('auth/login');

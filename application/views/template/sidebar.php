@@ -26,7 +26,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs"><?= $user['name'] ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -34,15 +34,14 @@
                                     <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        <?= $user['name'] ?> - <?= $user['username'] ?> <small><?= $user['last_login'] ?></small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
+                                    <!-- <div class="pull-left">
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
+                                    </div> -->
                                     <div class="pull-right">
                                         <a href="<?= site_url('auth/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
@@ -66,7 +65,7 @@
                         <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p><?= $user['name'] ?></p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -129,15 +128,13 @@
                             <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Stock</a></li>
                         </ul>
                     </li>
-                    <?php if ($this->session->userdata('level') == 1) { ?>
-                        <li class="header">SETTINGS</li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user"></i>
-                                <span>Users</span>
-                            </a>
-                        </li>
-                    <?php } ?>
+                    <li class="header">SETTINGS</li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->

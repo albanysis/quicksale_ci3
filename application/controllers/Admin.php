@@ -12,10 +12,10 @@ class Admin extends CI_Controller
 
   public function index()
   {
-    // 
+    $data['user'] = $this->db->get_where('user')->row_array();
+    $this->load->view('template/header');
+    $this->load->view('template/sidebar', $data);
+    $this->load->view('admin/index', $data);
+    $this->load->view('template/footer');
   }
 }
-
-
-/* End of file Admin.php */
-/* Location: ./application/controllers/Admin.php */
