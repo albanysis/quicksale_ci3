@@ -3,135 +3,101 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-    private $_table = "user";
 
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('user_m');
+  function __construct()
+  {
+    parent::__construct();
+    $this->load->library('form_validation');
+  }
+
+  public function index()
+  {
+    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+    $this->form_validation->set_rules('password', 'Password', 'trim|required');
+    if ($this->form_validation->run() == false) {
+      $data['title'] =  'QuickSale - Login';
+      $this->load->view('login', $data);
+    } else {
+      // Jika validasinya lolos
+      $this->_login();
     }
+  }
 
-    public function index()
-    {
-        $this->load->view('login');
-    }
+  private function _login()
+  {
+    $email = $this->input->post('email');
+    $password = $this->input->post('password');
+    $user = $this->db->get_where('user', ['email' => $email])->row_array();
+    // var_dump($user);
+    // die;
 
-    // public function login()
-    // {
-    //     $data['title'] = "Quick Sale - Login";
-    //     $this->form_validation->set_rules('username', 'Username', 'trim|required');
-    //     $this->form_validation->set_rules('password', 'Password', 'trim|required');
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('login', $data);
-    //     } else {
-    //         $this->_login();
-    //     }
-    // }
-
-    // private function _login()
-    // {
-    //     $username = $this->input->post('username');
-    //     $password = sha1($this->input->post('password'));
-    //     $user = $this->db->get_where('user', ['username' => $username])->row_array();
-
-    //     if ($user) {
-    //         //user ada
-    //         if (password_verify($password, $user['password'])) {
-    //             $data = [
-    //                 'username' => $user['username'],
-    //                 'level' => $user['level']
-    //             ];
-    //             $this->session->set_userdata($data);
-    //             redirect('kasir');
-    //         } else {
-    //             $this->session->set_flashdata(
-    //                 'message',
-    //                 'Invalid password'
-    //             );
-    //             redirect('auth/login');
-    //         }
-    //     } else {
-    //         $this->session->set_flashdata(
-    //             'message',
-    //             'Invalid username or password'
-    //         );
-    //         redirect('auth/login');
-    //     }
-    // }
-
-    public function login()
-    {
-        $data['title'] = "Quick Sale - Login";
-
-        $this->form_validation->set_rules('username', 'username', 'trim|required');
-        $this->form_validation->set_rules('password', 'password', 'required');
-
-        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('login', $data);
+    //Usernya ada
+    if ($user) {
+      // Jika usernya active
+      if ($user['is_active'] == 1) {
+        // Cek passwordnya
+        if (password_verify($password, $user['password'])) {
+          $data = [
+            'email' => $user['email'],
+            'role_id' => $user['role_id'],
+          ];
+          $this->session->set_userdata($data);
+          redirect('kasir');
         } else {
-            $username = $this->security->xss_clean($this->input->post('username'));
-            $password = $this->security->xss_clean($this->input->post('password'));
-
-            $user = $this->user_m->login($username, $password);
-
-            if ($user) {
-                $userdata = array(
-                    'user_id' => $user->user_id,
-                    'level' => $user->level,
-                    'authenticated' => TRUE
-                );
-
-                $this->db->update(
-                    'user',
-                    array('last_login' => date('Y-m-d H:i:s')),
-                    array('user_id' => $user->user_id)
-                );
-
-                $this->session->set_userdata($userdata);
-
-                if ($this->session->userdata('level') == 1) {
-                    redirect('admin');
-                } else {
-                    redirect('kasir');
-                }
-            } else {
-                $this->session->set_flashdata('message', 'Invalid username or password');
-                redirect('auth/login');
-            }
+          $this->session->set_flashdata('message', '<div class="alert alert-danger">Wrong password!</div>');
+          redirect('auth');
         }
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">This email has not been activated</div>');
+        redirect('auth');
+      }
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger">Email not registered</div>');
+      redirect('auth');
     }
+  }
 
-    // public function prosess()
-    // {
-    //     $post = $this->input->post(null, true);
-    //     if (isset($post['login'])) {
-    //         // $this->load->model('user_m');
-    //         $query = $this->user_m->login($post);
-    //         if ($query->num_rows() > 0) {
-    //             $row = $query->row();
-    //             $params = array(
-    //                 "user_id" => $row->user_id,
-    //                 "level" => $row->level
-    //             );
-    //             $this->session->set_userdata($params);
-    //             echo "<script>
-    //             alert('Selamat, Login berhasil');
-    //             window.location='" . site_url('dashboard') . "';
-    //             </script>";
-    //         } else {
-    //             echo "<script>
-    //             alert('Login Gagal');
-    //             window.location='" . site_url('auth/login') . "';
-    //             </script>";
-    //         }
-    //     }
-    // }
+  public function register()
+  {
 
-    public function Logout()
-    {
-        $this->session->sess_destroy();
-        redirect('auth/login');
+    // Membuat peraturan pada setiap class di html
+    $this->form_validation->set_rules('name', 'Name', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+      'is_unique' => 'This email has already!'
+    ]);
+    $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]|matches[retypepass]', [
+      'matches' => 'Password dont match!',
+      'min_length' => 'Password too short!'
+    ]);
+    $this->form_validation->set_rules('retypepass', 'Retype Password', 'required|trim|matches[password]');
+
+    // Jika form kosong
+    if ($this->form_validation->run() == false) {
+      $data['title'] =  'QuickSale - Register';
+      $this->load->view('register', $data);
+    } else {
+      // Jika data terisi
+      $data = [
+        'name' => htmlspecialchars($this->input->post('name', true)), // TRUE bertujuan untuk menghindari xxs
+        'email' => htmlspecialchars($this->input->post('email', true)), // htmlspecialchars untuk mengsanitasi input kita 
+        'image' => 'image.png',
+        'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT), // password_hash untuk mengenkripsi password
+        'role_id' => 2,
+        'is_active' => 1,
+        'date_created' => time()
+      ];
+      // Memasukan data kedalam database
+      $this->db->insert('user', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Success create your account</div>');
+      redirect('auth');
     }
+  }
+
+  public function logout()
+  {
+    $this->session->unset_userdata('email');
+    $this->session->unset_userdata('role_id');
+    $this->session->set_flashdata('message', '<div class="alert alert-success">You have been logged out!</div>');
+    redirect('auth');
+  }
 }

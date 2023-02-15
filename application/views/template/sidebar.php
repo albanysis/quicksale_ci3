@@ -34,7 +34,7 @@
                                     <img src="<?= base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        <?= $user['name'] ?> - <?= $user['username'] ?> <small><?= $user['last_login'] ?></small>
+                                        <?= $user['name'] ?> - <?= $user['role_id'] ?>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->

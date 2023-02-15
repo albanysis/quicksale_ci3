@@ -29,30 +29,28 @@
         <div class="login-logo">
             <a><b>Quick</b>Sale</a>
         </div>
-        <?php if ($this->session->flashdata('message')) { ?>
-            <div class="alert alert-danger">
-                <?php echo $this->session->flashdata('message') ?>
-            </div>
-        <?php } ?>
+        <?= $this->session->flashdata('message') ?>
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="<?= base_url('auth/login') ?>" method="post">
+            <form action="<?= base_url('auth') ?>" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>" required autofocus>
+                    <input type="text" name="email" class="form-control" placeholder="Email" value="<?= set_value('email'); ?>" required autofocus>
+                    <?= form_error('email', '<small class="text-danger">', '</small>') ?>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <?= form_error('password', '<small class="text-danger">', '</small>') ?>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
+                        <div class="icheck">
+                            <a href="<?= base_url('auth/register') ?>">
+                                <p>Cashier registration!</p>
+                            </a>
                         </div>
                     </div>
                     <!-- /.col -->

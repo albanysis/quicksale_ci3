@@ -14,7 +14,7 @@ class User_m extends CI_Model
         // return $query;
 
         $this->db->where('username', $username);
-        $this->db->where('password', sha1($password));
+        $this->db->where('password', $password);
         $query = $this->db->get('user');
         if ($query->num_rows()) {
             return $query->row();
@@ -22,6 +22,18 @@ class User_m extends CI_Model
 
         return false;
     }
+
+    // public function login($user, $pass)
+    // {
+    //     $this->db->where('username', $user);
+    //     $this->db->where('password', $pass);
+    //     $data = $this->db->get('user');
+    //     if ($data->num_rows() > 0) {
+    //         return TRUE;
+    //     } else {
+    //         return FALSE;
+    //     }
+    // }
 
     // public function logout($date, $id)
     // {
