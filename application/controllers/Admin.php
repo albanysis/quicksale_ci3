@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+// Password Email : yxyswnskhlbodopo
 
 class Admin extends CI_Controller
 {

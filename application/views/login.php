@@ -18,7 +18,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/iCheck/square/blue.css">
 
-    <link rel="icon" href="<?= base_url() ?>assets/dist/img/icon.svg">
+    <link rel="icon" href="<?= base_url() ?>assets/dist/img/header.svg">
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -33,7 +33,6 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
-
             <form action="<?= base_url('auth') ?>" method="post">
                 <div class="form-group has-feedback">
                     <input type="text" name="email" class="form-control" placeholder="Email" value="<?= set_value('email'); ?>" required autofocus>
