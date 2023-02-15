@@ -128,13 +128,15 @@
                             <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Stock</a></li>
                         </ul>
                     </li>
-                    <li class="header">SETTINGS</li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-user"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
+                    <?php if ($this->session->userdata('role_id') == 1) { ?>
+                        <li class="header">SETTINGS</li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </section>
             <!-- /.sidebar -->
