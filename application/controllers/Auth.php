@@ -159,11 +159,6 @@ class Auth extends CI_Controller
       // Jika Berhasil
       $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
 
-      var_dump($token);
-      echo ('<br>');
-      var_dump($user_token);
-      die;
-
       if ($user_token) {
         // Jika Berhasil
         if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
