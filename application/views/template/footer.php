@@ -8,6 +8,9 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- sweetalert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- jQuery 3 -->
 <script src="<?= base_url() ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

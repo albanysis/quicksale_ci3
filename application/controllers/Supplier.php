@@ -3,42 +3,82 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Supplier extends CI_Controller
 {
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('supplier_model');
+    }
+
     public function index()
     {
-        echo 'ini view supplier';
+        $this->load->view('supplier/testadd');
     }
 
     public function add()
     {
-        $this->form_validation->set_rules('nama_supplier', 'Nama', 'required');
-        $this->form_validation->set_rules('alamat_supplier', 'Alamat', 'required');
-        $this->form_validation->set_rules('nomer_tlp', 'Nomer tlp', 'required');
+        $namasupplier = $this->input->post('nama_supplier');
+        $alamatsupplier = $this->input->post('alamat_supplier');
+        $nomer = $this->input->post('nomer_tlp');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger">Failed!</div>');
+        $data = [
+            'nama_supplier' => $namasupplier,
+            'alamat_supplier' => $alamatsupplier,
+            'nomer_tlp' => $nomer
+        ];
+
+        $save = $this->supplier_model->insert($data);
+        if ($save == 1) {
             redirect('admin/supplier');
         } else {
-            $data = [
-                'nama_supplier' => $_POST['nama_supplier'],
-                'alamat_supplier' => $_POST['alamat_supplier'],
-                'nomer_tlp' => $_POST['nomer_tlp'],
-            ];
-            $this->db->insert('supplier', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success">Success Add New Supplier.</div>');
-            redirect('admin/supplier');
+            echo 'Gagal';
         }
     }
 
-    public function hapus($id)
+    public function edit()
     {
-        if ($id == "") {
-            // $this->session->set_flashdata('error', "Data Anda Gagal Di Hapus");
-            redirect('admin/supplier');
-        } else {
-            $this->db->where('id_supplier', $id);
-            $this->db->delete('supplier');
-            $this->session->set_flashdata('message', '<div class="alert alert-success">Success Delete Supplier.</div>');
-            redirect('admin/supplier');
+        $supplier = $this->supplier_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($supplier->rules());
+        if ($validation->run()) {
+            $supplier->update();
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Success Update Supplier.</div>');
+            redirect("admin/supplier");
         }
+    }
+
+    // public function hapus($id)
+    // {
+    //     if ($id == "") {
+    //         // $this->session->set_flashdata('error', "Data Anda Gagal Di Hapus");
+    //         redirect('admin/supplier');
+    //     } else {
+    //         $this->db->where('id_supplier', $id);
+    //         $this->db->delete('supplier');
+    //         // $this->session->set_flashdata('message', '<div class="alert alert-success">Success Delete Supplier.</div>');
+    //         // redirect('admin/supplier');
+    //     }
+    // }
+    public function delete()
+    {
+        $data   = file_get_contents("php://input");
+        $params = json_decode($data, true);
+
+        if ($params['id_supplier']) {
+            $this->supplier_model->delete($params['id_supplier']);
+
+            $return = array(
+                'status' => true,
+                'message' => 'Data User ' . $params['nama_supplier'] . ' berhasil di hapus.'
+            );
+        } else {
+            $return = array(
+                'status' => false,
+                'message' => 'Maaf, Data user ' . $params['nama_supplier'] . ' tidak ditemukan!!!'
+            );
+        }
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($return));
     }
 }
