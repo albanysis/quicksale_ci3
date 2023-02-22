@@ -8,11 +8,19 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="toastr.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
     <link rel="icon" href="<?= base_url() ?>assets/dist/img/qsLogo.png">
+
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -35,7 +43,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed; min-height: 100vh !important;">
             <!-- Brand Logo -->
             <a href="<?= base_url() ?>" class="brand-link">
                 <img src="<?= base_url() ?>assets/dist/img/qsLogoPutih.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -225,6 +233,7 @@
     </div>
     <!-- ./wrapper -->
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script>
     <!-- jQuery -->
     <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -233,6 +242,7 @@
     <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
+    <script src="toastr.js"></script>
 </body>
 
 </html>

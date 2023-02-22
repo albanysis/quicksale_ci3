@@ -11,7 +11,8 @@ class Transaksi extends CI_Controller
 
   public function index()
   {
-    $this->template->load('template', 'transaksi/transaksi_data');
+    $data['title'] = "QS - Transaksi";
+    $this->template->load('template', 'transaksi/transaksi_data', $data);
   }
 }
 
