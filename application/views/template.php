@@ -15,6 +15,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
     <link rel="icon" href="<?= base_url() ?>assets/dist/img/qsLogo.png">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
     <style>
         ::-webkit-scrollbar {
@@ -104,19 +107,19 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="../charts/chartjs.html" class="nav-link">
+                                        <a href="<?= site_url('category') ?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Categories</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="../charts/flot.html" class="nav-link">
+                                        <a href="<?= site_url('unit') ?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Units</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="../charts/inline.html" class="nav-link">
+                                        <a href="<?= site_url('item') ?>" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Items</p>
                                         </a>
@@ -242,7 +245,21 @@
     <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
-    <script src="toastr.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table1').DataTable()
+        })
+    </script>
 </body>
 
 </html>

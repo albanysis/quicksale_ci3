@@ -14,6 +14,7 @@ class Dashboard extends CI_Controller
   {
     $data['title'] = "QS - Dashboard";
     check_not_login();
+    check_admin();
     $this->template->load('template', 'dashboard', $data);
   }
 }

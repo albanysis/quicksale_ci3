@@ -31,12 +31,12 @@
                             <i class="fa fa-user-plus"> </i> Add New
                         </a> -->
                         <a href="<?= site_url('supplier/add') ?>" class="btn btn-sm btn-info">
-                            Add New
+                            Add New Supplier
                         </a>
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>#</th>
