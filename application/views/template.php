@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $title ?></title>
+    <title>QS - BPI</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -33,9 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="<?= base_url() ?>" class="nav-link">Home</a>
-                </li>
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
             </ul>
 
 
@@ -68,7 +68,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <?php if ($this->session->userdata('level') == 1) { ?>
+                        <?php if ($this->fungsi->user_login()->level == 1) { ?>
                             <li class="nav-item">
                                 <a href="<?= base_url('dashboard') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -78,7 +78,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../widgets.html" class="nav-link">
+                                <a href="<?= site_url('supplier') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-truck"></i>
                                     <p>
                                         Supplier
@@ -86,7 +86,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="<?= base_url('custumer') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         Custumers
@@ -154,7 +154,7 @@
 
                             </ul>
                         </li>
-                        <?php if ($this->session->userdata('level') == 1) { ?>
+                        <?php if ($this->fungsi->user_login()->level == 1) { ?>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-chart-pie"></i>
@@ -186,7 +186,7 @@
                             </li>
                         <?php } ?>
                         <li class="nav-header">EXAMPLES</li>
-                        <?php if ($this->session->userdata('level') == 1) { ?>
+                        <?php if ($this->fungsi->user_login()->level == 1) { ?>
                             <li class="nav-item">
                                 <a href="<?= site_url('user') ?>" class="nav-link">
                                     <i class="nav-icon fas fa-user"></i>

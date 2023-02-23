@@ -15,6 +15,7 @@ class User extends CI_Controller
   public function index()
   {
     check_not_login();
+    check_admin();
     $this->load->model('user_model');
     $data['title'] = "QS - User";
     $data['row'] = $this->user_model->get();

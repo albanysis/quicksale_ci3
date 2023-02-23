@@ -15,7 +15,7 @@
     </div><!-- /.container-fluid -->
 </section>
 
-
+<?= $this->session->flashdata('success') ?>
 
 <!-- Main content -->
 <section class="content">
@@ -58,12 +58,10 @@
                                     <td><?= $data->level == 1 ? "Admin" : "Kasir" ?></td>
                                     <td>
                                         <form action="<?= site_url('user/delete') ?>" method="post">
-                                            <a href="<?= site_url('user/edit/') . $data->user_id ?>" class="btn btn-sm btn-success">
-                                                <i class="fa fa-pencil-alt"> </i> Edit
-                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-dark"><i class="fa fa-pencil-alt"></i></button>
                                             <input type="hidden" name="user_id" value="<?= $data->user_id ?>">
-                                            <button onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash"> </i> Delete
+                                            <button onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
+                                                <i class="fa fa-trash"> </i>
                                             </button>
                                         </form>
                                     </td>
