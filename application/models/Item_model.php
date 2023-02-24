@@ -11,9 +11,11 @@ class Item_model extends CI_Model
     $this->db->from('item');
     $this->db->join('category', 'category.category_id = item.category_id');
     $this->db->join('unit', 'unit.unit_id = item.unit_id');
+    $this->db->order_by('item_id', 'desc');
     if ($id != null) {
       $this->db->where('item_id', $id);
     }
+    $this->db->order_by('barcode', 'asc');
     $query = $this->db->get();
     return $query;
   }
@@ -58,6 +60,22 @@ class Item_model extends CI_Model
   {
     $this->db->where('item_id', $id);
     $this->db->delete('item');
+  }
+
+  function update_stock_in($data)
+  {
+    $qty = $data['qty'];
+    $id = $data['item_id'];
+    $sql = "UPDATE item SET stock = stock + '$qty' WHERE item_id = '$id'";
+    $this->db->query($sql);
+  }
+
+  function update_stock_out($data)
+  {
+    $qty = $data['qty'];
+    $id = $data['item_id'];
+    $sql = "UPDATE item SET stock = stock - '$qty' WHERE item_id = '$id'";
+    $this->db->query($sql);
   }
 }
 

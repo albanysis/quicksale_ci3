@@ -8,7 +8,6 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link href="toastr.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.min.css" rel="stylesheet">
@@ -139,19 +138,19 @@
                                 <li class="nav-item">
                                     <a href="../UI/general.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>General</p>
+                                        <p>Sales</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../UI/icons.html" class="nav-link">
+                                    <a href="<?= site_url('stock/stock_in_data') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Icons</p>
+                                        <p>Stock In</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="../UI/buttons.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Buttons</p>
+                                        <p>Stock Out</p>
                                     </a>
                                 </li>
 
@@ -215,6 +214,8 @@
             <!-- /.sidebar -->
         </aside>
 
+        <!-- jQuery -->
+        <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <?php echo $contents ?>
@@ -237,8 +238,7 @@
     <!-- ./wrapper -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script>
-    <!-- jQuery -->
-    <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
+
     <!-- Bootstrap 4 -->
     <script src="<?= base_url() ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
