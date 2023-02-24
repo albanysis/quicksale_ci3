@@ -24,9 +24,10 @@
     <div class="card">
         <div class="card-header">
             <div class="box">
-                <div class="box-header">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px">
-                        <h3 class="box-title">Data Product Items</h3>
+                <div class="box-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px">
+                    <h3 class="box-title">Data Product Items</h3>
+                    <div>
+
                         <a href="<?= site_url('item/add') ?>" class="btn btn-sm btn-info">
                             Add New Product
                         </a>
@@ -63,6 +64,9 @@
                                         </a>
                                         <a href="<?= site_url('item/delete/' . $data->item_id) ?>" onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
                                             <i class="fa fa-trash"> </i>
+                                        </a>
+                                        <a href="<?= site_url('item/barcode/' . $data->item_id) ?>" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa fa-barcode"> </i>
                                         </a>
                                     </td>
                                 </tr>

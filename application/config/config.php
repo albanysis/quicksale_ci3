@@ -132,13 +132,13 @@ $config['subclass_prefix'] = 'MY_';
 | can opt to set a specific path as well:
 |
 |	$config['composer_autoload'] = '/path/to/vendor/autoload.php';
-|
+|composer require picqer/php-barcode-generator
 | For more information about Composer, please visit http://getcomposer.org/
 |
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'assets/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------

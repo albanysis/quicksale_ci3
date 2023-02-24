@@ -93,9 +93,27 @@ class Item extends CI_Controller
   {
     $post = $this->input->post(null, true);
     if (isset($_POST['add'])) {
-      $this->item_model->add($post);
+      if ($this->item_model->check_barcode($post['barcode'])->num_rows() > 0) {
+        echo "
+      <script>
+      alert('Barcode " . $post['barcode'] . " sudah dipakai barang lain.');
+      window.location='" . site_url('item/add') . "'
+      </script>
+      ";
+      } else {
+        $this->item_model->add($post);
+      }
     } else if (isset($_POST['edit'])) {
-      $this->item_model->edit($post);
+      if ($this->item_model->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+        echo "
+      <script>
+      alert('Barcode " . $post['barcode'] . " sudah dipakai barang lain.');
+      window.location='" . site_url('item/edit/' . $post['id']) . "'
+      </script>
+      ";
+      } else {
+        $this->item_model->edit($post);
+      }
     }
 
     if ($this->db->affected_rows() > 0) {
@@ -119,6 +137,19 @@ class Item extends CI_Controller
       ";
     }
     redirect('item');
+  }
+
+  function barcode($id)
+  {
+    $data['row'] = $this->item_model->get($id)->row();
+    $this->template->load('template', 'item/barcode', $data);
+  }
+
+  function barcode_print($id)
+  {
+    $data['row'] = $this->item_model->get($id)->row();
+    $html = $this->load->view('item/barcode_print', $data, true);
+    $this->fungsi->PdfGenerator($html, 'Qrbarcode-' . $data['row']->barcode);
   }
 }
 
