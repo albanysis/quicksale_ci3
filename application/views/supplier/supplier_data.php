@@ -64,6 +64,9 @@
                                         <a href="<?= site_url('supplier/delete/' . $data->supplier_id) ?>" onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
                                             <i class="fa fa-trash"> </i>
                                         </a>
+                                        <!-- <a href="#modalDelete" data-toggle="modal" onclick="$('#modalDelete #formDelete').attr('action', <?= site_url('supplier/delete/' . $data->supplier_id) ?>)" class="btn btn-sm btn-outline-danger">
+                                            <i class="fa fa-trash"> </i>
+                                        </a> -->
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -77,3 +80,22 @@
 
 </section>
 <!-- /.content -->
+
+<!-- <div class="modal fade" id="modalDelete">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yakin akan menghapus data ini?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-footer">
+                <form action="" id="formDelete" method="post">
+                    <button class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
