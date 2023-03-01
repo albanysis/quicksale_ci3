@@ -47,6 +47,32 @@ class Stock_model extends CI_Model
     ];
     $this->db->insert('t_stock', $params);
   }
+
+  public function get_stock_out()
+  {
+    $this->db->select('t_stock.stock_id, item.barcode, item.name as item_name, qty, date, detail, supplier.name as supplier_name, item.item_id');
+    $this->db->from('t_stock');
+    $this->db->join('item', 't_stock.item_id = item.item_id');
+    $this->db->join('supplier', 't_stock.supplier_id = supplier.supplier_id', 'left');
+    $this->db->where('type', 'out');
+    $this->db->order_by('stock_id', 'desc'); // Jika ingin data basru yang di insert muncul dipaling atas
+    $query = $this->db->get();
+    return $query;
+  }
+
+  public function add_stock_out($post)
+  {
+    $params = [
+      'item_id' => $post['item_id'],
+      'type' => 'out',
+      'detail' => $post['detail'],
+      'supplier_id' => $post['supplier'] == '' ? null : $post['supplier'],
+      'qty' => $post['qty'],
+      'date' => $post['date'],
+      'user_id' => $this->session->userdata('userid'),
+    ];
+    $this->db->insert('t_stock', $params);
+  }
 }
 
 /* End of file Stocke_model.php */

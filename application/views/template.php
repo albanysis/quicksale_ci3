@@ -89,7 +89,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="<?= base_url('custumer') ?>" class="nav-link">
-                                    <i class="nav-icon fas fa-users"></i>
+                                    <i class="nav-icon fas fa-address-card"></i>
                                     <p>
                                         Custumers
                                     </p>
@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../UI/buttons.html" class="nav-link">
+                                    <a href="<?= site_url('stock/stock_out_data') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Stock Out</p>
                                     </a>

@@ -25,55 +25,50 @@
         <div class="card-header">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Data Users</h3>
-                    <div class="pull-right">
-                        <!-- <a href="<?= site_url('user/add') ?>" class="btn btn-sm btn-primary">
-                            <i class="fa fa-user-plus"> </i> Add New
-                        </a> -->
-                        <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-default">
-                            Add New
-                        </button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px">
+                        <h3 class="box-title">Data Users</h3>
+                        <a href="<?= site_url('user/add') ?>" class="btn btn-sm btn-info">
+                            Add New User
+                        </a>
                     </div>
-                </div>
-                <div class="box-body table-responsive">
-                    <table class="table table-bordered table-striped" id="table1">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>level</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($row->result() as $key => $data) { ?>
+                    <div class="box-body table-responsive">
+                        <table class="table table-bordered table-striped" id="table1">
+                            <thead>
                                 <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td><?= $data->username ?></td>
-                                    <td><?= $data->name ?></td>
-                                    <td><?= $data->address ?></td>
-                                    <td><?= $data->level == 1 ? "Admin" : "Kasir" ?></td>
-                                    <td>
-                                        <form action="<?= site_url('user/delete') ?>" method="post">
-                                            <button type="button" class="btn btn-sm btn-outline-dark"><i class="fa fa-pencil-alt"></i></button>
-                                            <input type="hidden" name="user_id" value="<?= $data->user_id ?>">
-                                            <button onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
-                                                <i class="fa fa-trash"> </i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>level</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($row->result() as $key => $data) { ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $data->username ?></td>
+                                        <td><?= $data->name ?></td>
+                                        <td><?= $data->address ?></td>
+                                        <td><?= $data->level == 1 ? "Admin" : "Kasir" ?></td>
+                                        <td>
+                                            <a href="<?= site_url('user/edit/' . $data->user_id) ?>" class="btn btn-sm btn-outline-dark">
+                                                <i class="fa fa-pencil-alt"> </i>
+                                            </a>
+                                            <a href="<?= site_url('user/delete/' . $data->user_id) ?>" onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
+                                                <i class="fa fa-trash"> </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /.card -->
+        <!-- /.card -->
 
 </section>
 <!-- /.content -->

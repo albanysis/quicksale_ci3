@@ -9,38 +9,61 @@ class User extends CI_Controller
   {
     parent::__construct();
     $this->load->model('user_model');
-    $this->load->library('form_validation');
   }
 
   public function index()
   {
     check_not_login();
     check_admin();
-    $this->load->model('user_model');
-    $data['title'] = "QS - User";
     $data['row'] = $this->user_model->get();
     $this->template->load('template', 'user/user_data', $data);
   }
 
   public function add()
   {
-    $this->load->model('user_model');
-    $username = $this->input->post('username');
-    $name = $this->input->post('fullname');
-    $password = sha1($this->input->post('password'));
-    $address = $this->input->post('address');
-    $level = $this->input->post('level');
+    $user = new stdClass();
+    $user->user_id = null;
+    $user->username = null;
+    $user->name = null;
+    $user->address = null;
+    $user->level = null;
+    $data = array(
+      'page' => 'add',
+      'row' => $user
+    );
+    $this->template->load('template', 'user/user_form', $data);
+  }
 
-    $data = [
-      'username' => $username,
-      'name' => $name,
-      'password' => $password,
-      'address' => $address,
-      'level' => $level
-    ];
+  public function  edit($id)
+  {
+    $query = $this->user_model->get($id);
+    if ($query->num_rows() > 0) {
+      $user = $query->row();
+      $data = array(
+        'page' => 'edit',
+        'row' => $user
+      );
+      $this->template->load('template', 'user/user_form', $data);
+    } else {
+      echo "
+      <script>
+      alert('Data Tidak Ditemukan.');
+      window.location='" . site_url('user') . "'
+      </script>
+      ";
+    }
+  }
 
-    $save = $this->user_model->insert($data);
-    if ($save == 1) {
+  public function proses()
+  {
+    $post = $this->input->post(null, true);
+    if (isset($_POST['add'])) {
+      $this->user_model->add($post);
+    } else if (isset($_POST['edit'])) {
+      $this->user_model->edit($post);
+    }
+
+    if ($this->db->affected_rows() > 0) {
       echo "
       <script>
       alert('Data Berhasil Disimpan.');
@@ -50,21 +73,9 @@ class User extends CI_Controller
     }
   }
 
-  public function edit()
+  public function delete($id)
   {
-    $data['title'] = "QS - Tambah User";
-    $data['row'] = $this->user_model->get();
-    $this->template->load('template', 'user/user_edit', $data);
-    $data = array(
-      "username"
-    );
-  }
-
-  public function delete()
-  {
-    $id = $this->input->post('user_id');
     $this->user_model->delete($id);
-
     if ($this->db->affected_rows() > 0) {
       echo "
       <script>

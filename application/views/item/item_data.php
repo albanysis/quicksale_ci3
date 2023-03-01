@@ -28,6 +28,9 @@
                     <h3 class="box-title">Data Product Items</h3>
                     <div>
 
+                        <a href="<?= site_url('item/barcode_print/') ?>" class="btn btn-sm btn-warning">
+                            Barcode Product
+                        </a>
                         <a href="<?= site_url('item/add') ?>" class="btn btn-sm btn-info">
                             Add New Product
                         </a>
@@ -37,6 +40,9 @@
                     <table class="table table-bordered table-striped" id="table1">
                         <thead>
                             <tr>
+                                <th>
+                                    <input type="checkbox" id="check_all">
+                                </th>
                                 <th>#</th>
                                 <th>Barcode</th>
                                 <th>Name</th>
@@ -51,6 +57,9 @@
                             <?php $no = 1;
                             foreach ($row->result() as $key => $data) { ?>
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" class="checkBoxClass" name="idItem[]" value="<?= $data->item_id ?>">
+                                    </th>
                                     <td><?= $no++ ?></td>
                                     <td><?= $data->barcode ?></td>
                                     <td><?= $data->name ?></td>
@@ -65,7 +74,10 @@
                                         <a href="<?= site_url('item/delete/' . $data->item_id) ?>" onclick="return confirm('Apakah Anda Yakin?')" class="btn btn-sm btn-outline-danger">
                                             <i class="fa fa-trash"> </i>
                                         </a>
-                                        <a href="<?= site_url('item/barcode/' . $data->item_id) ?>" class="btn btn-sm btn-outline-secondary">
+                                        <!-- <a href="<?= site_url('item/barcode/' . $data->item_id) ?>" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa fa-barcode"> </i>
+                                        </a> -->
+                                        <a href="<?= site_url('item/barcode_print/' . $data->item_id) ?>" class="btn btn-sm btn-outline-secondary">
                                             <i class="fa fa-barcode"> </i>
                                         </a>
                                     </td>
@@ -81,3 +93,11 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+    $(document).ready(function() {
+        $("#check_all").click(function() {
+            $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+        });
+    })
+</script>

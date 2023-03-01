@@ -15,7 +15,7 @@
     </div><!-- /.container-fluid -->
 </section>
 
-<section class="content">
+<section class="content" style="padding: 0 24px;">
     <div class="d-flex" style="gap: 24px;">
         <div class="card">
             <div class="card-body">
@@ -52,6 +52,9 @@
                                             <div>
                                                 <select id="customer" class="form-control">
                                                     <option value="">Umum</option>
+                                                    <?php foreach ($customer as $cust => $value) {
+                                                        echo '<option value="' . $value->custumer_id . '">' . $value->name . '</option>';
+                                                    } ?>
                                                 </select>
                                             </div>
                                         </td>
@@ -115,14 +118,14 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card" style="width: 350px;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-auto">
                         <div class="box box-widget">
                             <div class="box-body">
                                 <div>
-                                    <h4>Invoice <b><span id="invoice">MP190925001</span></b></h4>
+                                    <h4>Invoice <b><span id="invoice"><?= $invoice ?></span></b></h4>
                                     <h1><b><span id="grand_total2" style="font-size: 50pt;">0</span></b></h1>
                                 </div>
                             </div>
@@ -132,7 +135,7 @@
             </div>
         </div>
     </div>
-    <div class="card">
+    <div class="card" style="padding: 12px;">
         <div class="box-body table-responsive-sm">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -263,11 +266,11 @@
         </div>
         <div>
             <div>
-                <button id="cancel_payment" class="btn btn-flat btn-warning">
+                <button id="cancel_payment" class="btn btn-flat btn-dark">
                     <i class="fa fa-sync-alt"></i> Cancel
                 </button>
             </div>
-            <div>
+            <div style="margin-top: 8px;">
                 <button id="process_payment" class=" btn btn-flat btn-success">
                     <i class="far fa-paper-plane"></i> Payment
                 </button>

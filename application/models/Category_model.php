@@ -8,6 +8,7 @@ class Category_model extends CI_Model
   public function get($id = null)
   {
     $this->db->from('category');
+    $this->db->order_by('category_id', 'desc');
     if ($id != null) {
       $this->db->where('category_id', $id);
     }

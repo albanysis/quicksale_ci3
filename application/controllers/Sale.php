@@ -8,12 +8,19 @@ class Sale extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    check_not_login();
+    $this->load->model('sale_model');
   }
 
   public function index()
   {
-    check_not_login();
-    $this->template->load('template', 'transaksi/sale/sale_form');
+    $this->load->model('custumer_model');
+    $customer = $this->custumer_model->get()->result();
+    $data = array(
+      'customer' => $customer,
+      'invoice' => $this->sale_model->invoice_no(),
+    );
+    $this->template->load('template', 'transaksi/sale/sale_form', $data);
   }
 }
 

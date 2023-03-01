@@ -16,6 +16,7 @@ class Custumer_model extends CI_Model
   public function get($id = null)
   {
     $this->db->from('custumer');
+    $this->db->order_by('custumer_id', 'desc');
     if ($id != null) {
       $this->db->where('custumer_id', $id);
     }

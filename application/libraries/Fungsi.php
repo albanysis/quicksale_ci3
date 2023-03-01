@@ -24,7 +24,7 @@ class Fungsi
     $dompdf->loadHtml($html);
 
     // (Optional) Setup the paper size and orientation
-    $dompdf->setPaper('A8', 'landscape');
+    $dompdf->setPaper('A4', 'landscape');
 
     // Render the HTML as PDF
     $dompdf->render();
