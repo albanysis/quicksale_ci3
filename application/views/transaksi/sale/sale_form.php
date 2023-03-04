@@ -84,7 +84,7 @@
                                                 <input type="hidden" id="stock">
                                                 <input type="text" id="barcode" class="form-control" autofocus>
                                                 <span>
-                                                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
+                                                    <button id="add_cart" type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
                                                         <i class="fa fa-search"></i>
                                                     </button>
                                                 </span>
@@ -145,12 +145,12 @@
                         <th>Product Item</th>
                         <th>Price</th>
                         <th>Qty</th>
-                        <th>Discount Item</th>
+                        <!-- <th>Discount Item</th> -->
                         <th>Total</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="t_body">
                     <tr>
                         <td colspan="9" class="text-center">Tidak Ada Item</td>
                     </tr>
@@ -278,3 +278,97 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modal-item">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 100vh;">
+            <div class="modal-header">
+                <h4 class="modal-title">Select Product Items</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-bordered table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Barcode</th>
+                            <th>Name</th>
+                            <th>Unit</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($item as $i => $data) { ?>
+                            <tr>
+                                <td><?= $data->barcode ?></td>
+                                <td><?= $data->name ?></td>
+                                <td><?= $data->unit_name ?></td>
+                                <td class="text-right"><?= indo_currency($data->price) ?></td>
+                                <td class="text-right"><?= $data->stock ?></td>
+                                <td class="text-center">
+                                    <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->item_id ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->unit_name ?>" data-stock="<?= $data->stock ?>">
+                                        <i class="fa fa-check"></i> Select
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '#select', function() {
+            var item_id = $(this).data('id');
+            var barcode = $(this).data('barcode');
+            var name = $(this).data('name');
+            var unit_name = $(this).data('unit');
+            var stock = $(this).data('stock');
+            $('#item_id').val(item_id);
+            $('#barcode').val(barcode);
+            $('#item_name').val(name);
+            $('#item_unit').val(unit_name);
+            $('#stock').val(stock);
+            $('#modal-item').modal('hide');
+        })
+
+        $(document).on('click', '#add_cart', function() {
+            $('#tbody').html("");
+            $.each(response.carts, function(key, product) {
+                total += product.price * product.qty
+                $('#tbody').append(`
+              <tr>
+                <td>${product.name}</td>
+                <td colspan="2" class="flex gap">
+                  <select class="input-form" id="qty">
+                  ${[...Array(product.stock).keys()].map((x) => (
+                    `<option ${product.qty == x + 1 ? 'selected' : null} value=${x + 1}>
+                        ${x + 1}
+                    </option>`
+                  ))}
+                  </select>
+                  <input type="hidden" id="cartId" value="${product.id}"/>
+                  <button type="button" style="margin: auto; padding: 8px;" class="btn danger" value="${product.id}">
+                    <span class="icon center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="auto" height="auto" viewBox="0 0 512 512"><polygon points="337.46 240 312 214.54 256 270.54 200 214.54 174.54 240 230.54 296 174.54 352 200 377.46 256 321.46 312 377.46 337.46 352 281.46 296 337.46 240" style="fill:none"/><polygon points="337.46 240 312 214.54 256 270.54 200 214.54 174.54 240 230.54 296 174.54 352 200 377.46 256 321.46 312 377.46 337.46 352 281.46 296 337.46 240" style="fill:none"/><path d="M64,160,93.74,442.51A24,24,0,0,0,117.61,464H394.39a24,24,0,0,0,23.87-21.49L448,160ZM312,377.46l-56-56-56,56L174.54,352l56-56-56-56L200,214.54l56,56,56-56L337.46,240l-56,56,56,56Z"/><rect x="32" y="48" width="448" height="80" rx="12" ry="12"/></svg>
+                    </span>
+                  </button>
+                </td>
+                <td style="text-align: right;">
+                  ${product.qty * product.price}
+                </td>
+              </tr>
+            `)
+            });
+        })
+    })
+</script>

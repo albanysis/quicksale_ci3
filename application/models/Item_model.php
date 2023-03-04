@@ -77,6 +77,16 @@ class Item_model extends CI_Model
     $sql = "UPDATE item SET stock = stock - '$qty' WHERE item_id = '$id'";
     $this->db->query($sql);
   }
+
+  public function find($id)
+  {
+    $result = $this->db->where('item_id', $id)->limit(1)->get('item');
+    if ($result->num_rows() > 0) {
+      return $result->row();
+    } else {
+      return array();
+    }
+  }
 }
 
 /* End of file Item_model.php */

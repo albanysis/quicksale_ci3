@@ -20,6 +20,12 @@ class Sale_model extends CI_Model
     $invoice = "QS" . date('ymd') . $no;
     return $invoice;
   }
+
+  function get_all_item()
+  {
+    $result = $this->db->get('item');
+    return $result;
+  }
 }
 
 /* End of file Sale_model.php */
